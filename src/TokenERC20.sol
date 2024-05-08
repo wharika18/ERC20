@@ -1,9 +1,9 @@
 //SPDX License Identifier: MIT
 pragma solidity ^0.8.19;
 
-//import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 contract TokenERC20 {
-    //  using SafeMath for uint256;
+
     uint256 public totalSupply;
     address public owner;
     uint256 public decimals;
@@ -30,9 +30,9 @@ contract TokenERC20 {
     ) {
         owner = msg.sender;
         totalSupply = initialSupply * 10 ** uint256(decimals); // Update total supply with the decimal amount
-        balanceOf[msg.sender] = totalSupply; // Give the creator all initial tokens
-        name = tokenName; // Set the name for display purposes
-        symbol = tokenSymbol; // Set the symbol for display purposes
+        balanceOf[msg.sender] = totalSupply; 
+        name = tokenName; 
+        symbol = tokenSymbol; 
         decimals = 18; // Initialize decimals
     }
 
@@ -42,11 +42,7 @@ contract TokenERC20 {
         emit Transfer(_to, _value);
     }
 
-    /* function transfer(address _to, uint256 _value) public {
-        balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
-        balanceOf[_to] = balanceOf[_to].add(_value);
-        emit Transfer(_to, _value);
-    } */
+    
 
     function approve(
         address _spender,
@@ -70,12 +66,12 @@ contract TokenERC20 {
     }
 
     function getBalance(address _acc) public view returns (uint256) {
-        uint256 bal = balanceOf[_acc]; // this is not erc20 balanceOf function, it is the mapping so , [] to be used..
+        uint256 bal = balanceOf[_acc]; 
         return bal;
     }
 
     function burn(uint256 _burnAmt) public returns (bool burnt) {
-        require(msg.sender == owner); // stipulation that only the owner could burn
+        require(msg.sender == owner); 
         require(balanceOf[owner] >= _burnAmt);
         totalSupply -= _burnAmt;
         balanceOf[owner] -= _burnAmt;
@@ -87,7 +83,7 @@ contract TokenERC20 {
         address _acc,
         uint256 _burnAmt
     ) public returns (bool burnt) {
-        require(msg.sender == owner); // only owner, but he should be given allowance of that much amount by the burn from acct.
+        require(msg.sender == owner); 
         require(_burnAmt >= allowance[_acc][msg.sender]);
         require(balanceOf[_acc] >= _burnAmt);
         totalSupply -= _burnAmt;
